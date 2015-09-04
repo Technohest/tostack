@@ -1,16 +1,18 @@
 package com.technohest.tostack;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.*;
 
 public class MainActivity extends Activity {
     private ArrayAdapter<String> adapter;
+    private View view;
+
     /**
      * Called when the activity is first created.
      */
@@ -24,6 +26,12 @@ public class MainActivity extends Activity {
         todolist.setAdapter(adapter);
 
         initButtons();
+
+    }
+
+    private void addToList(Editable text) {
+        adapter.add(text.toString());
+        adapter.notifyDataSetChanged();
     }
 
     private void initButtons() {
@@ -44,7 +52,7 @@ public class MainActivity extends Activity {
     }
 
     private void stash(View v) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        setContentView(R.layout.input);
         toast("Stash");
     }
 
