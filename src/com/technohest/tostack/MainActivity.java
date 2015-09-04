@@ -1,17 +1,17 @@
 package com.technohest.tostack;
 
-import android.app.Activity;
-import android.content.Context;
+import android.support.v4.app.*;
 import android.os.Bundle;
-import android.text.Editable;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
-public class MainActivity extends Activity {
+import java.util.ArrayList;
+
+public class MainActivity extends FragmentActivity implements TodoDialogListener{
     private ArrayAdapter<String> adapter;
     private View view;
+    private ArrayList<String> todoListItems;
+    private ListView todoList;
 
     /**
      * Called when the activity is first created.
@@ -21,17 +21,23 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.todolist);
-        ListView todolist = (ListView) findViewById(R.id.todolist);
-        todolist.setAdapter(adapter);
+        todoListItems = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(this, R.layout.list_item, todoListItems);
+        todoList = (ListView) findViewById(R.id.todolist);
+        todoList.setAdapter(adapter);
 
         initButtons();
 
     }
 
-    private void addToList(Editable text) {
-        adapter.add(text.toString());
+    private void addToList(String text) {
+        todoListItems.add(text);
         adapter.notifyDataSetChanged();
+        toast("Stash");
+    }
+    private void removeItemFromList(){
+        todoListItems.remove(todoListItems.size()-1);
+        toast("POP!");
     }
 
     private void initButtons() {
@@ -52,12 +58,22 @@ public class MainActivity extends Activity {
     }
 
     private void stash(View v) {
-        setContentView(R.layout.input);
-        toast("Stash");
+        showEditDialog();
     }
 
     private void pop(View v) {
-        toast("POP!");
+        removeItemFromList();
+    }
+
+    private void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        TodoDialog todoDialog = new TodoDialog();
+        todoDialog.show(fm, "input");
+    }
+
+    @Override
+    public void onFinishEditDialog(String inputText) {
+        addToList(inputText);
     }
 
     /**

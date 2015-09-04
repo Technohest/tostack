@@ -3,4 +3,5 @@
     <string name="app_name">tostack</string>
     <string name="stash">Stash</string>
     <string name="pop">Pop!</string>
+    <string name="inputPrompt"/>
 </resources>
