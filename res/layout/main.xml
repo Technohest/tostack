@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
-    <TextView
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello World, MainActivity"
-            />
-</LinearLayout>
+            android:layout_height="fill_parent"
+            android:weightSum="1"
+            android:id="@+id/layout"
+            android:orientation="vertical"
+            android:columnCount="33"
+            android:rowCount="77">
+    <Button
+            android:layout_width="177dp"
+            android:layout_height="92dp"
+            android:text="@string/stash"
+            android:id="@+id/stashbutton"
+            android:layout_gravity="left|bottom"/>
+    <Button
+            android:layout_width="177dp"
+            android:layout_height="92dp"
+            android:text="@string/pop"
+            android:id="@+id/popbutton"
+            android:layout_gravity="right|bottom"/>
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="516dp"
+            android:id="@+id/todolist"
+            android:layout_gravity="center_horizontal|top"/>
+</FrameLayout>
 
