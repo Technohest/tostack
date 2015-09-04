@@ -60,6 +60,9 @@ public class MainActivity extends Activity {
         toast("POP!");
     }
 
+    /**
+     * Displays text for few seconds in the bottom of application.
+     */
     public void toast(String string){
         Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
     }
