@@ -36,8 +36,11 @@ public class MainActivity extends FragmentActivity implements TodoDialogListener
         toast("Stash");
     }
     private void removeItemFromList(){
-        todoListItems.remove(todoListItems.size()-1);
-        toast("POP!");
+        if(todoListItems.size()>0) {
+            todoListItems.remove(0);
+            adapter.notifyDataSetChanged();
+            toast("POP!");
+        }
     }
 
     private void initButtons() {
