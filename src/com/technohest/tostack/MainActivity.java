@@ -7,11 +7,9 @@ import android.widget.*;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity implements TodoDialogListener{
+public class MainActivity extends FragmentActivity implements TodoDialogListener, View.OnClickListener{
     private ArrayAdapter<String> adapter;
-    private View view;
     private ArrayList<String> todoListItems;
-    private ListView todoList;
 
     /**
      * Called when the activity is first created.
@@ -23,7 +21,7 @@ public class MainActivity extends FragmentActivity implements TodoDialogListener
 
         todoListItems = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(this, R.layout.list_item, todoListItems);
-        todoList = (ListView) findViewById(R.id.todolist);
+        ListView todoList = (ListView) findViewById(R.id.todolist);
         todoList.setAdapter(adapter);
 
         initButtons();
@@ -33,31 +31,19 @@ public class MainActivity extends FragmentActivity implements TodoDialogListener
     private void addToList(String text) {
         todoListItems.add(text);
         adapter.notifyDataSetChanged();
-        toast("Stash");
     }
     private void removeItemFromList(){
         if(todoListItems.size()>0) {
             todoListItems.remove(0);
             adapter.notifyDataSetChanged();
-            toast("POP!");
         }
     }
 
     private void initButtons() {
         Button pop = (Button) findViewById(R.id.popbutton);
-        pop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pop(v);
-            }
-        });
+        pop.setOnClickListener(this);
         Button stash = (Button) findViewById(R.id.stashbutton);
-        stash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stash(v);
-            }
-        });
+        stash.setOnClickListener(this);
     }
 
     private void stash(View v) {
@@ -84,5 +70,21 @@ public class MainActivity extends FragmentActivity implements TodoDialogListener
      */
     public void toast(String string){
         Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.popbutton:
+            {
+                pop(v);
+                break;
+            }
+            case R.id.stashbutton:
+            {
+                stash(v);
+                break;
+            }
+        }
     }
 }
